@@ -872,6 +872,14 @@ export default function Page() {
   }
 
   const spiceLabel = ["Gentle", "Suggestive", "Steamy", "Heat-forward", "Very spicy"][state.settings.spice - 1] ?? "Moderate";
+  const contentModeLabel =
+    state.settings.contentMode === "fade_to_black"
+      ? "WI-safe / fade to black"
+      : state.settings.contentMode === "closed_door"
+        ? "Closed door / implied off-page"
+        : state.settings.contentMode === "romance"
+          ? "Romance / light intimacy"
+          : "Spicy / still policy-safe";
 
   return (
     <main className="shell">
@@ -1116,6 +1124,9 @@ export default function Page() {
                 </select>
                 <div className="small" style={{ marginTop: 6 }}>
                   Use this to keep the tone where you want it, while the app still blocks illegal or non-consensual content.
+                </div>
+                <div className="chip" style={{ marginTop: 8 }}>
+                  {contentModeLabel}
                 </div>
               </div>
               <div className="field">
