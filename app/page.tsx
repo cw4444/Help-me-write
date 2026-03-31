@@ -826,6 +826,27 @@ export default function Page() {
     pushTimelineEntry("Promoted idea", item.text.slice(0, 180));
   }
 
+  function suggestStartMode(promptText: string): Settings["startMode"] {
+    const text = promptText.toLowerCase();
+    if (/(?:^|\b)(dialogue|conversation|banter|argue|talks?|says?|replies?|asks?|answers?)(?:\b|$)/.test(text)) return "dialogue_heavy";
+    if (/(slow burn|longing|tension|pining|yearning|builds? slowly|waits?)(?:\b|$)/.test(text)) return "slow_burn";
+    if (/(flirt|tease|charged|suggestive|chemistry|smolder|hints? at)(?:\b|$)/.test(text)) return "suggestive";
+    if (/(heat|spicy|passion|kiss|bedroom|explicit|intimate|sensual)(?:\b|$)/.test(text)) return "explicit";
+    return "balanced";
+  }
+
+  const suggestedStartMode = suggestStartMode(state.prompt);
+  const suggestedStartModeLabel =
+    suggestedStartMode === "dialogue_heavy"
+      ? "Dialogue-heavy"
+      : suggestedStartMode === "slow_burn"
+        ? "Slow burn"
+        : suggestedStartMode === "suggestive"
+          ? "Suggestive"
+          : suggestedStartMode === "explicit"
+            ? "Direct"
+            : "Balanced";
+
   const filteredScratchpad = state.scratchpad.filter((item) => {
     const query = scratchpadSearch.trim().toLowerCase();
     if (!query) return true;
@@ -957,6 +978,16 @@ export default function Page() {
                 {mode === "collaborate" ? "Collaboration" : "Editor"}
               </button>
             ))}
+            <span className="chip" title="Current story start mode">
+              Start mode: {startModeLabel}
+            </span>
+            <button
+              className="tab"
+              onClick={() => setState((p) => ({ ...p, settings: { ...p.settings, startMode: suggestedStartMode } }))}
+              title={`Suggested from the current prompt: ${suggestedStartModeLabel}`}
+            >
+              Use suggested start: {suggestedStartModeLabel}
+            </button>
             <button className="tab primary" onClick={() => void generateStory()} disabled={isGenerating}>
               {isGenerating ? "Writing..." : state.mode === "collaborate" ? "Continue story" : "Apply edit pass"}
             </button>
