@@ -880,6 +880,14 @@ export default function Page() {
         : state.settings.contentMode === "romance"
           ? "Romance / light intimacy"
           : "Spicy / still policy-safe";
+  const contentModeHint =
+    state.settings.contentMode === "fade_to_black"
+      ? "No on-page explicitness; keep intimacy implied."
+      : state.settings.contentMode === "closed_door"
+        ? "Romance can happen, but the scene closes before details."
+        : state.settings.contentMode === "romance"
+          ? "Tender and flirty, but not explicit."
+          : "More heat, but still no illegal or non-consensual content.";
 
   return (
     <main className="shell">
@@ -1117,16 +1125,19 @@ export default function Page() {
                   value={state.settings.contentMode}
                   onChange={(e) => setState((p) => ({ ...p, settings: { ...p.settings, contentMode: e.target.value as Settings["contentMode"] } }))}
                 >
-                  <option value="fade_to_black">Fade to black</option>
-                  <option value="closed_door">Closed door</option>
-                  <option value="romance">Romance</option>
-                  <option value="spicy">Spicy</option>
+                  <option value="fade_to_black">Fade to black - keep it implied</option>
+                  <option value="closed_door">Closed door - romance off-page</option>
+                  <option value="romance">Romance - tender, light intimacy</option>
+                  <option value="spicy">Spicy - more heat, still safe</option>
                 </select>
                 <div className="small" style={{ marginTop: 6 }}>
                   Use this to keep the tone where you want it, while the app still blocks illegal or non-consensual content.
                 </div>
                 <div className="chip" style={{ marginTop: 8 }}>
                   {contentModeLabel}
+                </div>
+                <div className="small" style={{ marginTop: 6 }}>
+                  {contentModeHint}
                 </div>
               </div>
               <div className="field">
