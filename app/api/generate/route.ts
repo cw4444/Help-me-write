@@ -27,7 +27,7 @@ async function streamAnthropic(apiKey: string, model: string, prompt: string) {
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const { provider, apiKey, model, mode, story, prompt, spice, contentMode, writer, character } = body;
+  const { provider, apiKey, model, mode, story, prompt, spice, contentMode, startMode, writer, character } = body;
   const modeGuidance =
     contentMode === "spicy"
       ? "The writer wants a spicy tone, but still keep everything within platform-safe and legal limits. No explicit sexual content if policy would disallow it."
@@ -46,9 +46,19 @@ export async function POST(req: Request) {
     `If a scene approaches a restricted area, steer away gently or fade out rather than hard erroring or dwelling on the boundary.`,
     `Character to preserve: ${JSON.stringify(character ?? {})}`,
   ].join("\n");
+  const startModeGuidance =
+    startMode === "suggestive"
+      ? "Open with a suggestive, teasing energy and a little more charge in the atmosphere."
+      : startMode === "explicit"
+        ? "Open with direct, high-heat energy, but still stay within platform-safe policy limits."
+        : startMode === "dialogue_heavy"
+          ? "Open by foregrounding dialogue and character voices."
+          : startMode === "slow_burn"
+            ? "Open slowly, letting tension accumulate before anything big happens."
+            : "Open in a balanced, flexible way that suits the scene.";
   const user = mode === "collaborate"
-    ? `Continue the story in a natural way.\n\nStory so far:\n${story}\n\nWriter prompt:\n${prompt}`
-    : `Edit the draft for obvious inconsistencies, wording issues, and typos. Return the improved passage only.\n\nDraft:\n${story}\n\nFocus:\n${prompt}`;
+    ? `Continue the story in a natural way.\n\nOpening mode: ${startMode || "balanced"}. ${startModeGuidance}\n\nStory so far:\n${story}\n\nWriter prompt:\n${prompt}`
+    : `Edit the draft for obvious inconsistencies, wording issues, and typos. Return the improved passage only.\n\nOpening mode: ${startMode || "balanced"}. ${startModeGuidance}\n\nDraft:\n${story}\n\nFocus:\n${prompt}`;
   const fullPrompt = `${system}\n\n${user}`;
   const upstream = provider === "anthropic"
     ? await streamAnthropic(apiKey, model, fullPrompt)

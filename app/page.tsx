@@ -31,6 +31,7 @@ const defaultState: ProjectState = {
     houseStyle: "Prefer vivid detail, concrete verbs, and clean dialogue.",
     spice: 3,
     contentMode: "fade_to_black",
+    startMode: "balanced",
   },
   mode: "collaborate",
   story: "The rain hit the station roof like a handful of thrown coins.\n\n",
@@ -77,7 +78,16 @@ function loadState(): ProjectState {
   if (typeof window === "undefined") return defaultState;
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
-    return raw ? { ...defaultState, ...JSON.parse(raw) } : defaultState;
+    if (!raw) return defaultState;
+    const parsed = JSON.parse(raw) as Partial<ProjectState>;
+    return {
+      ...defaultState,
+      ...parsed,
+      settings: {
+        ...defaultState.settings,
+        ...parsed.settings,
+      },
+    };
   } catch {
     return defaultState;
   }
@@ -462,7 +472,7 @@ export default function Page() {
           )
           .join("\n")
       : "- none";
-    const md = `---\nprovider: ${state.settings.provider}\nmodel: ${state.settings.model}\nwriterName: ${state.settings.writerName}\ntone: ${JSON.stringify(state.settings.tone)}\nhouseStyle: ${JSON.stringify(state.settings.houseStyle)}\nspice: ${state.settings.spice}\ncontentMode: ${state.settings.contentMode}\n---\n\n# StorySmith Project\n\n## Story\n${state.story}\n\n## Prompt\n${state.prompt}\n\n## Scratchpad\n${scratchpadMd}\n\n## Characters\n${charMd}\n`;
+    const md = `---\nprovider: ${state.settings.provider}\nmodel: ${state.settings.model}\nwriterName: ${state.settings.writerName}\ntone: ${JSON.stringify(state.settings.tone)}\nhouseStyle: ${JSON.stringify(state.settings.houseStyle)}\nspice: ${state.settings.spice}\ncontentMode: ${state.settings.contentMode}\nstartMode: ${state.settings.startMode}\n---\n\n# StorySmith Project\n\n## Story\n${state.story}\n\n## Prompt\n${state.prompt}\n\n## Scratchpad\n${scratchpadMd}\n\n## Characters\n${charMd}\n`;
     const blob = new Blob([md], { type: "text/markdown" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -508,6 +518,9 @@ export default function Page() {
             break;
           case "contentMode":
             if (["romance", "spicy", "fade_to_black", "closed_door"].includes(value)) next.settings.contentMode = value as Settings["contentMode"];
+            break;
+          case "startMode":
+            if (["balanced", "suggestive", "explicit", "dialogue_heavy", "slow_burn"].includes(value)) next.settings.startMode = value as Settings["startMode"];
             break;
         }
       }
@@ -662,6 +675,7 @@ export default function Page() {
       apiKey: state.settings.apiKey,
       model: state.settings.model,
       contentMode: state.settings.contentMode,
+      startMode: state.settings.startMode,
       mode: state.mode,
       story: state.story,
       prompt: state.prompt,
@@ -751,6 +765,7 @@ export default function Page() {
         ...prev.settings,
         ...incoming.settings,
         apiKey: "",
+        startMode: (incoming.settings as Partial<Settings> | undefined)?.startMode ?? prev.settings.startMode,
       },
     }));
   }
@@ -888,6 +903,26 @@ export default function Page() {
         : state.settings.contentMode === "romance"
           ? "Tender and flirty, but not explicit."
           : "More heat, but still no illegal or non-consensual content.";
+  const startModeLabel =
+    state.settings.startMode === "balanced"
+      ? "Balanced launch"
+      : state.settings.startMode === "suggestive"
+        ? "Suggestive / teasing opener"
+        : state.settings.startMode === "explicit"
+          ? "Direct / high-heat opener"
+          : state.settings.startMode === "dialogue_heavy"
+            ? "Dialogue-heavy opener"
+            : "Slow-burn opener";
+  const startModeHint =
+    state.settings.startMode === "balanced"
+      ? "A flexible default that keeps the prose even and natural."
+      : state.settings.startMode === "suggestive"
+        ? "A little more charged and flirtatious right from the first beat."
+        : state.settings.startMode === "explicit"
+          ? "More direct energy, while still respecting the selected content limits."
+          : state.settings.startMode === "dialogue_heavy"
+            ? "Start with character voices and momentum instead of long description."
+            : "Stretch the tension out and let the attraction build slowly.";
 
   return (
     <main className="shell">
@@ -1083,8 +1118,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-        </div>
-      </section>
+      </div>
 
       <div className="stack">
           <div className="panel" style={{ padding: 18 }}>
@@ -1138,6 +1172,25 @@ export default function Page() {
                 </div>
                 <div className="small" style={{ marginTop: 6 }}>
                   {contentModeHint}
+                </div>
+              </div>
+              <div className="field">
+                <label>Story start mode</label>
+                <select
+                  value={state.settings.startMode}
+                  onChange={(e) => setState((p) => ({ ...p, settings: { ...p.settings, startMode: e.target.value as Settings["startMode"] } }))}
+                >
+                  <option value="balanced">Balanced - steady, flexible launch</option>
+                  <option value="suggestive">Suggestive - flirty and teasing</option>
+                  <option value="explicit">Direct - more upfront heat, still policy-safe</option>
+                  <option value="dialogue_heavy">Dialogue-heavy - lead with voices</option>
+                  <option value="slow_burn">Slow burn - stretch the tension</option>
+                </select>
+                <div className="chip" style={{ marginTop: 8 }}>
+                  {startModeLabel}
+                </div>
+                <div className="small" style={{ marginTop: 6 }}>
+                  {startModeHint}
                 </div>
               </div>
               <div className="field">

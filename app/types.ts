@@ -35,4 +35,5 @@ export type Settings = {
   houseStyle: string;
   spice: number;
   contentMode: "romance" | "spicy" | "fade_to_black" | "closed_door";
+  startMode: "balanced" | "suggestive" | "explicit" | "dialogue_heavy" | "slow_burn";
 };
