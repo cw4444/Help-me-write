@@ -1,0 +1,82 @@
+:root {
+  color-scheme: dark;
+  --bg: #0d0f14;
+  --panel: #141821;
+  --panel-2: #10141b;
+  --line: #263043;
+  --text: #edf1f7;
+  --muted: #93a0b6;
+  --accent: #8be9b2;
+  --accent-2: #7aa7ff;
+  --danger: #ff7c7c;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background:
+  radial-gradient(circle at top left, rgba(123, 167, 255, 0.14), transparent 35%),
+  radial-gradient(circle at 80% 20%, rgba(139, 233, 178, 0.1), transparent 28%),
+  var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; }
+textarea, input, select {
+  width: 100%;
+  background: #0b0e13;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+textarea { min-height: 120px; resize: vertical; }
+button {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+button.primary { background: linear-gradient(180deg, rgba(139,233,178,0.2), rgba(139,233,178,0.1)); border-color: rgba(139,233,178,0.4); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+.shell { max-width: 1380px; margin: 0 auto; padding: 24px; }
+.hero { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 18px; align-items: stretch; margin-bottom: 18px; }
+.panel {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+}
+.hero-main { padding: 30px; min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; }
+.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .18em; font-size: 12px; }
+.title { font-size: clamp(42px, 6vw, 76px); line-height: .95; margin: 10px 0 12px; max-width: 9ch; }
+.subtitle { max-width: 58ch; color: var(--muted); font-size: 16px; line-height: 1.6; }
+.hero-side { padding: 20px; display: grid; gap: 12px; }
+.stat { background: rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.06); border-radius: 18px; padding: 14px; }
+.stat strong { display: block; font-size: 28px; margin-bottom: 6px; }
+.grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 18px; }
+.workspace { padding: 18px; }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tab { padding: 10px 12px; border-radius: 999px; }
+.tab.active { border-color: rgba(123,167,255,0.55); background: rgba(123,167,255,0.12); }
+.section { display: grid; gap: 12px; }
+.row { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.row3 { display: grid; gap: 10px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.field label { display: block; font-size: 12px; color: var(--muted); margin: 0 0 6px; }
+.small { font-size: 13px; color: var(--muted); }
+.output { white-space: pre-wrap; line-height: 1.7; background: rgba(0,0,0,0.18); border-radius: 18px; padding: 16px; min-height: 180px; border: 1px solid rgba(255,255,255,0.07); }
+.split { display: grid; grid-template-columns: 1fr 360px; gap: 18px; }
+.stack { display: grid; gap: 12px; }
+.badge { display: inline-flex; gap: 8px; align-items: center; padding: 8px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.08); color: var(--muted); }
+.modalBackdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.55); display: grid; place-items: center; padding: 18px;
+}
+.modal {
+  width: min(820px, 100%); background: #0e1218; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; box-shadow: var(--shadow); padding: 18px;
+}
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { padding: 8px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); }
+.spicy { accent-color: var(--accent); }
+@media (max-width: 960px) {
+  .hero, .grid, .split, .row, .row3 { grid-template-columns: 1fr; }
+  .title { max-width: none; }
+}
