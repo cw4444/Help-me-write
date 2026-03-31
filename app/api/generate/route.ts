@@ -32,6 +32,7 @@ export async function POST(req: Request) {
     `You are a writing assistant.`,
     `Writer profile: ${writer?.name || "anonymous"} | tone: ${writer?.tone || ""} | house style: ${writer?.houseStyle || ""}`,
     `Spice level: ${spice}/5. Keep within platform-safe content; do not become explicit if the request pushes too far.`,
+    `Adult and erotic content is allowed only when it stays within applicable policy and law. Never generate illegal sexual content, sexual content involving minors, coercion, exploitation, incest, or non-consensual sexual content.`,
     `Character to preserve: ${JSON.stringify(character ?? {})}`,
   ].join("\n");
   const user = mode === "collaborate"
