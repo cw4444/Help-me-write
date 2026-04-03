@@ -1259,7 +1259,7 @@ export default function Page() {
                   <label>Model</label>
                   <input value={effectiveModel} readOnly />
                   <div className="small" style={{ marginTop: 6 }}>
-                    Auto-selected for you. xAI defaults to <code>grok-3-mini</code>.
+                    Auto-selected for you.
                   </div>
                 </div>
               </div>
@@ -1293,7 +1293,7 @@ export default function Page() {
                     }
                   />
                   <div className="small" style={{ marginTop: 6 }}>
-                    The 6th tier is exactly what it sounds like and is xAI-only. It will not appear for OpenAI or Anthropic.
+                    WI-safe by default. The 6th tier is xAI-only and exactly what it sounds like.
                   </div>
                 </div>
               </div>
@@ -1318,7 +1318,7 @@ export default function Page() {
                   <option value="closed_door">Closed door - romance off-page</option>
                   <option value="romance">Romance - tender, light intimacy</option>
                   <option value="spicy">Spicy - more heat, still safe</option>
-                  {isXaiGrok ? <option value="absolute_filth">Absolute filth - xAI + Grok only</option> : null}
+                  {isXaiGrok ? <option value="absolute_filth">Absolute filth - xAI only</option> : null}
                 </select>
                 <div className="small" style={{ marginTop: 6 }}>
                   Use this to keep the tone where you want it, while the app still blocks illegal or non-consensual content.
