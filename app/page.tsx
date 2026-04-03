@@ -1265,7 +1265,7 @@ export default function Page() {
                     }
                   />
                   <div className="small" style={{ marginTop: 6 }}>
-                    Try <code>grok-4</code> or <code>grok-4.1</code> for xAI. The extra spice tier only appears when xAI + Grok is selected.
+                    Try <code>grok-3-mini</code> for the cheapest xAI option, or a newer Grok if you want more capability. The extra spice tier only appears when xAI + Grok is selected.
                   </div>
                 </div>
               </div>
@@ -1290,6 +1290,9 @@ export default function Page() {
                     value={Math.min(state.settings.spice, isXaiGrok ? 6 : 5)}
                     onChange={(e) => setState((p) => ({ ...p, settings: { ...p.settings, spice: Number(e.target.value) } }))}
                   />
+                  <div className="small" style={{ marginTop: 6 }}>
+                    The 6th tier is exactly what it sounds like and is xAI-only. It will not appear for OpenAI or Anthropic.
+                  </div>
                 </div>
               </div>
               <div className="field">
@@ -1302,7 +1305,7 @@ export default function Page() {
                       settings: {
                         ...p.settings,
                         contentMode:
-                          e.target.value === "absolute_filth" && !isXaiGrok
+                          e.target.value === "absolute_filth" && !(p.settings.provider === "xai" && /grok/i.test(p.settings.model))
                             ? "spicy"
                             : (e.target.value as Settings["contentMode"]),
                       },
