@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "StorySmith",
+  title: "Help Me Write",
   description: "A local-friendly writing assistant with collaboration, editing, and character continuity.",
 };
 

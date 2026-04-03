@@ -1,14 +1,14 @@
-# StorySmith
+# Help Me Write
 
-An AI-powered writing assistant that runs on your own computer. You bring the story — StorySmith helps you keep writing, tighten your prose, track your characters, and brainstorm ideas without any of it leaving your machine.
+An AI-powered writing assistant that runs on your own computer. You bring the story — Help Me Write helps you keep writing, tighten your prose, track your characters, and brainstorm ideas without any of it leaving your machine.
 
 ---
 
 ## What does it actually do?
 
-- **Collaborate** — stuck mid-scene? StorySmith continues the story from where you left off, matching your tone and style
+- **Collaborate** — stuck mid-scene? Help Me Write continues the story from where you left off, matching your tone and style
 - **Edit** — paste a passage and it'll tidy up typos, awkward phrasing, and continuity slips
-- **Character memory** — build profiles for your characters (appearance, voice, backstory, relationships) and StorySmith keeps track of them as the story evolves
+- **Character memory** — build profiles for your characters (appearance, voice, backstory, relationships) and Help Me Write keeps track of them as the story evolves
 - **Continuity review** — flags moments where a character acts out of character or contradicts themselves, so you can decide whether it's a mistake or a plot twist
 - **Scratchpad** — a place to dump ideas, chapter notes, and inspiration that links back to your story
 - **Style controls** — dial in your tone, writing style, and content intensity
@@ -23,7 +23,7 @@ You'll need two things before you start:
 
 **1. An AI API key**
 
-StorySmith uses either OpenAI or Anthropic to do the AI stuff. You only need one.
+Help Me Write uses either OpenAI or Anthropic to do the AI stuff. You only need one.
 
 - **OpenAI** — sign up at [platform.openai.com](https://platform.openai.com), go to API keys, and create one
 - **Anthropic** — sign up at [console.anthropic.com](https://console.anthropic.com), go to API keys, and create one
@@ -32,11 +32,11 @@ Both have free trial credit when you sign up. Copy your key somewhere safe.
 
 **2. Node.js**
 
-This is the engine that runs StorySmith locally. Download the LTS version from [nodejs.org](https://nodejs.org) and install it like any other program.
+This is the engine that runs Help Me Write locally. Download the LTS version from [nodejs.org](https://nodejs.org) and install it like any other program.
 
 ---
 
-### Running StorySmith
+### Running Help Me Write
 
 **On Windows:**
 
@@ -70,7 +70,7 @@ This is the engine that runs StorySmith locally. Download the LTS version from [
    ```
 5. Open **http://localhost:3000** in your browser
 
-> The terminal window needs to stay open while you're using StorySmith. When you're done, press **Ctrl+C** in the terminal to stop it.
+> The terminal window needs to stay open while you're using Help Me Write. When you're done, press **Ctrl+C** in the terminal to stop it.
 
 ---
 

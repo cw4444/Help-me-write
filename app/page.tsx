@@ -473,12 +473,12 @@ export default function Page() {
           )
           .join("\n")
       : "- none";
-    const md = `---\nprovider: ${state.settings.provider}\nmodel: ${state.settings.model}\nwriterName: ${state.settings.writerName}\ntone: ${JSON.stringify(state.settings.tone)}\nhouseStyle: ${JSON.stringify(state.settings.houseStyle)}\nspice: ${state.settings.spice}\ncontentMode: ${state.settings.contentMode}\nstartMode: ${state.settings.startMode}\nsceneStyle: ${state.settings.sceneStyle}\n---\n\n# StorySmith Project\n\n## Story\n${state.story}\n\n## Prompt\n${state.prompt}\n\n## Scratchpad\n${scratchpadMd}\n\n## Characters\n${charMd}\n`;
+    const md = `---\nprovider: ${state.settings.provider}\nmodel: ${state.settings.model}\nwriterName: ${state.settings.writerName}\ntone: ${JSON.stringify(state.settings.tone)}\nhouseStyle: ${JSON.stringify(state.settings.houseStyle)}\nspice: ${state.settings.spice}\ncontentMode: ${state.settings.contentMode}\nstartMode: ${state.settings.startMode}\nsceneStyle: ${state.settings.sceneStyle}\n---\n\n# Help Me Write Project\n\n## Story\n${state.story}\n\n## Prompt\n${state.prompt}\n\n## Scratchpad\n${scratchpadMd}\n\n## Characters\n${charMd}\n`;
     const blob = new Blob([md], { type: "text/markdown" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "storysmith-project.md";
+    a.download = "help-me-write-project.md";
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -756,7 +756,7 @@ export default function Page() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "storysmith-project.json";
+    a.download = "help-me-write-project.json";
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -996,7 +996,7 @@ export default function Page() {
       <section className="hero">
         <div className="panel hero-main">
           <div>
-            <div className="eyebrow">StorySmith</div>
+            <div className="eyebrow">Help Me Write</div>
             <h1 className="title">A writing assistant that stays in the room with the story.</h1>
             <p className="subtitle">
               Collaborate with AI, run a clean editing pass, and keep character continuity persistent so the cast does not
