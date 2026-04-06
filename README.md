@@ -1,4 +1,3 @@
-Live Demo: https://help-me-write.vercel.app/
 
 # Help Me Write
 
